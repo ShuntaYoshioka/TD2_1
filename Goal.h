@@ -4,7 +4,7 @@
 
 struct AABB;
 
-class Goal {
+class Grab {
 public:
 	void Initialize(const KamataEngine::Vector3& position, const KamataEngine::Vector3& size, KamataEngine::Model* model);
 	void Update();

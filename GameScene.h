@@ -19,7 +19,7 @@ private:
 
 	bool finished_ = false;
 
-	Goal goal_;
+	Grab goal_;
 
 public:
 	enum class Phase {
@@ -52,7 +52,7 @@ public:
 
 	KamataEngine::Model* modelDeathParticle_ = nullptr;
 
-	KamataEngine::Model* modelGoal_ = nullptr;
+	KamataEngine::Model* modelGrab_ = nullptr;
 
 	// ワールドトランスフォーム
 	KamataEngine::WorldTransform worldTransform_;
@@ -69,7 +69,8 @@ public:
 	// 敵
 	std::list<Enemy*> enemies_;
 
-	std::vector<Goal*> goals_;
+	//つかむ場所
+	std::vector<Grab*> grabs_;
 
 	// パーティクル
 	DeathParticles* deathParticles_ = nullptr;

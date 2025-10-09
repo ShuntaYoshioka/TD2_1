@@ -16,7 +16,7 @@ void GameScene::Initialize() {
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
 	modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 	modelDeathParticle_ = Model::CreateFromOBJ("deathParticle", true);
-	modelGoal_ = Model::CreateFromOBJ("goal", true);
+	modelGrab_ = Model::CreateFromOBJ("goal", true);
 	// マップチップフィールドの生成
 	mapChipField_ = new MapChipField;
 	// マップチップフィールドの初期化
@@ -66,19 +66,20 @@ void GameScene::Initialize() {
 	deathParticles_ = new DeathParticles;
 	deathParticles_->Initialize(modelDeathParticle_, &camera_, playerPosition);
 
-	std::vector<KamataEngine::Vector2> goalTilePositions = {
-	    {12, 32}, // 1つ目のつかむ場所
+	// つかむ場所のマップチップ番号リスト
+	std::vector<KamataEngine::Vector2> grabTilePositions = {
+	    {12, 32}, // 1つ目
 	    {16, 28}, // 2つ目
 	    {8, 25}  // 3つ目
 	};
 
 	// ゴールの初期化
-	for (const auto& tilePos : goalTilePositions) {
-		Goal* newGoal = new Goal();
-		Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(static_cast<uint32_t>(tilePos.x), static_cast<uint32_t>(tilePos.y));
-		Vector3 goalSize = {1.0f, 1.0f, 1.0f};
-		newGoal->Initialize(goalPosition, goalSize, modelGoal_);
-		goals_.push_back(newGoal);
+	for (const auto& tilePos : grabTilePositions) {
+		Grab* grabGoal = new Grab();
+		Vector3 grabPosition = mapChipField_->GetMapChipPositionByIndex(static_cast<uint32_t>(tilePos.x), static_cast<uint32_t>(tilePos.y));
+		Vector3 grabSize = {1.0f, 1.0f, 1.0f};
+		grabGoal->Initialize(grabPosition, grabSize, modelGrab_);
+		grabs_.push_back(grabGoal);
 	}
 
 	// 他の初期化
@@ -142,10 +143,10 @@ void GameScene::CheckAllCollisions() {
 
 player_->SetGrab(false); // まずリセット
 
-	for (Goal* goal : goals_) {
-		if (IsCollision(aabb1, goal->GetAABB())) {
+	for (Grab* grab : grabs_) {
+		if (IsCollision(aabb1, grab->GetAABB())) {
 			player_->SetGrab(true);
-			player_->SetGrabPosition(goal->GetPosition());
+			player_->SetGrabPosition(grab->GetPosition());
 			break;
 		}
 	}
@@ -195,8 +196,8 @@ void GameScene::Update() {
 
 	switch (phase_) {
 	case Phase::kPlay:
-		for (Goal* goal : goals_) {
-			goal->Update(); 
+		for (Grab* grap : grabs_) {
+			grap->Update(); 
 		}
 
 		CheckAllCollisions();
@@ -304,7 +305,7 @@ void GameScene::Draw() {
 		enemy->Draw();
 	}
 
-	for (Goal* goal : goals_) {
+	for (Grab* goal : grabs_) {
 		goal->Draw(&camera_);
 	}
 
@@ -327,10 +328,10 @@ GameScene::~GameScene() {
 	for (Enemy* enemy : enemies_) {
 		delete enemy;
 	}
-	for (Goal* goal : goals_) {
+	for (Grab* goal : grabs_) {
 		delete goal;
 	}
-	goals_.clear();
+	grabs_.clear();
 	delete modelSkydome_;
 	delete mapChipField_;
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
