@@ -17,7 +17,7 @@ void CameraController::Update() {
 
 	targetPosition_ = targetWorldTransform.translation_ + targetoffest_ + targetVelocity * kVelocityBias;
 
-	camera_.translation_.x = Lerp(camera_.translation_.x,targetPosition_.x,kInterpolationRate);
+	camera_.translation_.y = Lerp(camera_.translation_.y,targetPosition_.y,kInterpolationRate);
 
 	
 	camera_.translation_.x = max(camera_.translation_.x, camera_.translation_.x + targetMargin.left);

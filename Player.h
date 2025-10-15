@@ -52,19 +52,23 @@ public:
 
 	bool onGround_ = true;
 
+	//回転の所要時間
 	static inline const float kTimeTurn = 0.3f;
 
+	// プレイヤー加速度 
 	static inline const float kAcceleration = 0.08f;
 
 	static inline const float kAttenuation = 0.2f;
 
-	static inline const float kLimitRunSpeed = 0.3f;
 
-	static inline const float kGravityAcceleration = 0.1f;
+	// 重力加速度　小さくするとジャンプがゆっくりになるｙお
+	static inline const float kGravityAcceleration = 0.08f;
 
+	// 落下速度の上限
 	static inline const float kLimitFallSpeed = 0.5f;
 
-	static inline const float kJumpAcceleration = 1.0f;
+	// ジャンプ初速　ジャンプのたかさ
+	static inline const float kJumpAcceleration = 0.9f;
 
 	static inline const float kWidth = 0.8f;
 

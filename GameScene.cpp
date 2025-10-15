@@ -59,7 +59,7 @@ void GameScene::Initialize() {
 	cameraController_->Initialize();
 	cameraController_->SetTarget(player_);
 
-	CameraController::Rect cameraAera = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
+	CameraController::Rect cameraAera = {12.0f,12.0f, 6.0f, 100 - 6.0f};
 	cameraController_->SetMovableArea(cameraAera);
 
 	// 仮生成パーティクル
@@ -70,10 +70,11 @@ void GameScene::Initialize() {
 	std::vector<KamataEngine::Vector2> grabTilePositions = {
 	    {12, 32}, // 1つ目
 	    {16, 28}, // 2つ目
-	    {8, 25}  // 3つ目
+	    {12, 27},  // 3つ目
+	    {15,  23}  // 4つ目
 	};
 
-	// ゴールの初期化
+	// grapの初期化
 	for (const auto& tilePos : grabTilePositions) {
 		Grab* grabGoal = new Grab();
 		Vector3 grabPosition = mapChipField_->GetMapChipPositionByIndex(static_cast<uint32_t>(tilePos.x), static_cast<uint32_t>(tilePos.y));
