@@ -10,6 +10,7 @@ void CameraController::Initialize() {
 
 }
 
+
 void CameraController::Update() {
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();
 	
