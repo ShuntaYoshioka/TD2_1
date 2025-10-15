@@ -70,8 +70,9 @@ void GameScene::Initialize() {
 	std::vector<KamataEngine::Vector2> grabTilePositions = {
 	    {12, 32}, // 1つ目
 	    {16, 28}, // 2つ目
-	    {12, 27},  // 3つ目
-	    {15,  23}  // 4つ目
+	    {12, 25},  // 3つ目
+	    {14,  23},  // 4つ目
+	    {10, 20}  //  5つ目
 	};
 
 	// grapの初期化
@@ -106,10 +107,10 @@ void GameScene::GenerateBlocks() {
 
 	// 要素数を変更する
 	// 列数を設定
-	worldTransformBlocks_.resize(38);
-	for (uint32_t i = 0; i < 38; ++i) {
+	worldTransformBlocks_.resize(numBlockVirtical);
+	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
 		// 1列の要素数を設定
-		worldTransformBlocks_[i].resize(50);
+		worldTransformBlocks_[i].resize(numBlockHorizontal);
 	}
 
 	// キューブの生成
