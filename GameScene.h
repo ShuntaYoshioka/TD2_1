@@ -3,7 +3,7 @@
 #include "DeathParticles.h"
 #include "Enemy.h"
 #include "Fade.h"
-#include "Goal.h"
+#include "Grab.h"
 #include "KamataEngine.h"
 #include "MapChipField.h"
 #include "Player.h"
@@ -19,7 +19,7 @@ private:
 
 	bool finished_ = false;
 
-	Grab goal_;
+	Grab grab_;
 
 public:
 	enum class Phase {
