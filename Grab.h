@@ -25,4 +25,6 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 
 	bool reached_ = false;
+
+	float rotateTimer_ = 0.0f;
 };
