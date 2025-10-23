@@ -14,8 +14,9 @@ void Grab::Initialize(const KamataEngine::Vector3& position, const KamataEngine:
 
 void Grab::Update() {
 	rotateTimer_ += 1.8f;
-	if (rotateTimer_ >= 360.0f)
+	if (rotateTimer_ >= 360.0f) {
 		rotateTimer_ -= 360.0f;
+}
 	worldTransform_.translation_ = position_;
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	worldTransform_.TransferMatrix();

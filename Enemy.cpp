@@ -15,7 +15,10 @@ void Enemy::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera,
 
 void Enemy::Update() {
 	// ジャンプ挙動用タイマー
-	walkTimer_ += 1.0f / 60.0f;
+	walkTimer_ += 1.8f;
+	if (walkTimer_ >= 360.0f) {
+		walkTimer_ -= 360.0f;
+	}
 
 	// 位置更新
 	worldTransform_.translation_.x += velocity_.x;
@@ -28,7 +31,7 @@ void Enemy::Update() {
 	}
 
 	// 歩行に合わせて回転
-	worldTransform_.rotation_.x = std::sin(walkTimer_ * 2.0f * 3.14159265f);
+	worldTransform_.rotation_.z = walkTimer_ * (3.1415f / 180.0f);
 
 	// 行列の更新
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
