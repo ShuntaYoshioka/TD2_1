@@ -86,7 +86,7 @@ void Player::InputMove() {
 		// 接地中の回転処理
 		if (onGround_ || isGrab_) {
 
-			constexpr float kTurnSpeed = 0.09f;
+			constexpr float kTurnSpeed = 0.08f;
 			worldTransform_.rotation_.z += kTurnSpeed;
 			if (worldTransform_.rotation_.z > 6.2831853f) {
 				worldTransform_.rotation_.z -= 6.2831853f;

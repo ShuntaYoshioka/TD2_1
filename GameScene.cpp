@@ -72,7 +72,7 @@ void GameScene::Initialize() {
 	deathParticles_->Initialize(modelDeathParticle_, &camera_, playerPosition);
 
 	// ゴールの初期化
-	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(14,8); //ゴール置く位置
+	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(14,32); //ゴール置く位置 変える
 	Vector3 goalSize = {1.0f, 1.0f, 1.0f};
 	goal_.Initialize(goalPosition, goalSize, modelGoal_);
 	
