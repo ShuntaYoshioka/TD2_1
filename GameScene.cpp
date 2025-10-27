@@ -17,6 +17,7 @@ void GameScene::Initialize() {
 	modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 	modelDeathParticle_ = Model::CreateFromOBJ("deathParticle", true);
 	modelGrab_ = Model::CreateFromOBJ("grab", true);
+	modelGoal_ = Model::CreateFromOBJ("goal", true);
 	// マップチップフィールドの生成
 	mapChipField_ = new MapChipField;
 	// マップチップフィールドの初期化
@@ -69,6 +70,12 @@ void GameScene::Initialize() {
 	// 仮生成パーティクル
 	deathParticles_ = new DeathParticles;
 	deathParticles_->Initialize(modelDeathParticle_, &camera_, playerPosition);
+
+	// ゴールの初期化
+	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(14,8); //ゴール置く位置
+	Vector3 goalSize = {1.0f, 1.0f, 1.0f};
+	goal_.Initialize(goalPosition, goalSize, modelGoal_);
+	
 
 	// つかむ場所のマップチップ番号リスト
 	std::vector<KamataEngine::Vector2> grabTilePositions = {
@@ -157,6 +164,11 @@ player_->SetGrab(false); // まずリセット
 		}
 	}
 
+	if (IsCollision(aabb1, goal_.GetAABB())) {
+		finished_ = true;
+		isclear_ = true;
+	}
+
 
 #pragma endregion
 }
@@ -202,6 +214,7 @@ void GameScene::Update() {
 
 	switch (phase_) {
 	case Phase::kPlay:
+		goal_.Update();
 		for (Grab* grap : grabs_) {
 			grap->Update(); 
 		}
@@ -310,6 +323,8 @@ void GameScene::Draw() {
 	for (Enemy* enemy : enemies_) {
 		enemy->Draw();
 	}
+
+	goal_.Draw(&camera_);
 
 	for (Grab* goal : grabs_) {
 		goal->Draw(&camera_);
